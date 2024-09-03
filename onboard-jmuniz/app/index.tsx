@@ -1,12 +1,10 @@
-import { StyledView } from '@/components/StyledView';
-import { StyledText } from '@/components/StyledText';
-import React from 'react';
+import { StyledView } from "@/components/styled-view";
+import { StyledText } from "@/components/styled-text";
+import React from "react";
 export default function IndexView() {
-
   return (
     <StyledView>
       <StyledText> Hello World </StyledText>
     </StyledView>
-
   );
 }
