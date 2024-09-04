@@ -1,7 +1,7 @@
 import { StyledView } from "@/components/styled-view";
 import { StyledTitle } from "@/components/styled-title";
 import React from "react";
-import { LoginView } from "@/components/login-view";
+import { LoginView } from "@/components/login/login-view";
 export default function IndexView() {
   return (
     <StyledView>
