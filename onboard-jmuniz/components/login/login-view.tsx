@@ -15,7 +15,7 @@ export function LoginView() {
     if (!email) {
       result.push("E-mail field must not be empty.\n");
     } else if (!/[\S]*[@][\S]*[.com]/gm.test(email)) {
-      result.push("Must input valid email format: xxxx@xxxx.com.\n");
+      result.push("E-mail must have valid format: xxxx@xxxx.com.\n");
     }
     if (!password) {
       result.push("Password field must not be empty.\n");
@@ -34,7 +34,15 @@ export function LoginView() {
       for (const item in profileEval) {
         message += profileEval[item];
       }
-      alert(message);
+      if (React.Platform.OS == "web") {
+        alert(message);
+      } else {
+        React.Alert.alert("Warning", message, [
+          {
+            text: "Close",
+          },
+        ]);
+      }
     }
   }
 
