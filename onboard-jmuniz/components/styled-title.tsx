@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 
-export const StyledText = styled.Text`
+export const StyledTitle = styled.Text`
   font-size: 40px;
+  padding: 40px 10px;
 `;
