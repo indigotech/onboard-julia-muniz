@@ -23,13 +23,13 @@ This App is an onboarding activity to learn about React Native and related tools
 ## Steps to Run
 
 1. In a terminal inside `onboard-jmuniz` folder:
-    1. Run: `npm expo start`
+    1. Run: `npx expo start`
     2. Toggle the iOS environment with the shortcut `i`
     3. Toggle the Android environment with the shortcut `a`
-        * It will be necessary to download and install the app on the emulator, use this [link] (https://expo.dev/accounts/julia.muniz/projects/onboard-jmuniz/builds/8f66fc93-7b82-4a16-b52c-af4efb75cc96)
+        * It will be necessary to download and install the app on the emulator, use this [link](https://expo.dev/accounts/julia.muniz/projects/onboard-jmuniz/builds/8f66fc93-7b82-4a16-b52c-af4efb75cc96)
     4. Toggle the Web environment with the shortcut `w`
     5. All three environments should appear like the following image:
 
-    <img width="1247" alt="Screenshot 2024-09-03 at 10 45 12" src="https://github.com/user-attachments/assets/1e23e256-624c-459d-a4a0-8585686d647f">
+<img width="1309" alt="Screenshot 2024-09-03 at 17 54 08" src="https://github.com/user-attachments/assets/419f24a1-e3f3-4c51-93eb-bec389e9e63d">
 
 
