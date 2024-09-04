@@ -14,7 +14,6 @@ export const StyledInput = styled.TextInput`
 interface LoginTextInputProps {
   label: string;
   conditions: { pattern: RegExp; message: string }[];
-  onValueChange: (value: string) => void;
 }
 export function LoginTextInput(props: LoginTextInputProps) {
   const [value, setValue] = useState("");
@@ -25,7 +24,6 @@ export function LoginTextInput(props: LoginTextInputProps) {
     const messages = props.conditions
       .filter((entry) => !input.match(entry.pattern))
       .map((entry) => entry.message);
-    console.log(messages);
     setWarning(messages.join("\n"));
   }
 

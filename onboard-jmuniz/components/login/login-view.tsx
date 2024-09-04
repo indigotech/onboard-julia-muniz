@@ -3,14 +3,8 @@ import { LoginSubmitButton } from "./login-submit-button";
 import { LoginTextInput } from "./text-validation/login-text-input";
 import { LoginViewContainer } from "./login-view-container";
 import { LoginTextBox } from "./login-text-box";
-import { useState } from "react";
 
 export function LoginView() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  console.log(email + password);
-
   return (
     <LoginViewContainer>
       <LoginTextBox>
@@ -22,7 +16,6 @@ export function LoginView() {
               message: "E-mail must have valid format: xxxx@xxxx.com.",
             },
           ]}
-          onValueChange={setEmail}
         />
         <LoginTextInput
           label="Password"
@@ -40,7 +33,6 @@ export function LoginView() {
               message: "Password must have at least 7 valid characters.",
             },
           ]}
-          onValueChange={setPassword}
         />
       </LoginTextBox>
       <LoginSubmitButton title={"Submit"}></LoginSubmitButton>
