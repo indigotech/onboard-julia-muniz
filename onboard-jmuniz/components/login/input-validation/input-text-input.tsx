@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
-import { LoginLabelText } from "./login-label-text";
-import { LoginWarningText } from "./login-waring-text";
+import { LoginLabelText } from "./input-label-text";
+import { LoginWarningText } from "./input-waring-text";
 import { View } from "react-native";
 import { useState } from "react";
 import { LoginTextInputProps } from "@/constants/interfaces/login-text-input-props";
@@ -12,7 +12,10 @@ const StyledInput = styled.TextInput`
   box-shadow: 2px 2px #dcdcdc;
 `;
 
-export function LoginTextInput(props: { data: LoginTextInputProps }) {
+export function LoginTextInput(props: {
+  data: LoginTextInputProps;
+  onValidateInput: (input: string) => void;
+}) {
   const [value, setValue] = useState("");
   const [warning, setWarning] = useState("");
 
@@ -22,6 +25,9 @@ export function LoginTextInput(props: { data: LoginTextInputProps }) {
       .filter((entry) => !input.match(entry.pattern))
       .map((entry) => entry.message);
     setWarning(messages.join("\n"));
+    if (messages.length) {
+      props.onValidateInput(input);
+    }
   }
 
   return (

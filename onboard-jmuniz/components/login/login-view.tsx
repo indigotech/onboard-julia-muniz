@@ -1,9 +1,11 @@
 import * as React from "react-native";
 import { LoginSubmitButton } from "./login-submit-button";
-import { LoginTextInput } from "./text-validation/login-text-input";
+import { LoginTextInput } from "./input-validation/input-text-input";
 import { LoginViewContainer } from "./login-view-container";
 import { LoginTextBox } from "./login-text-box";
 import { LoginTextInputProps } from "@/constants/interfaces/login-text-input-props";
+import { useState } from "react";
+import { useLoginUser } from "@/hooks/useLoginUser";
 
 const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
@@ -34,13 +36,31 @@ const passwordFieldData: LoginTextInputProps = {
 };
 
 export function LoginView() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginUser] = useLoginUser();
+
   return (
     <LoginViewContainer>
       <LoginTextBox>
-        <LoginTextInput data={emailFieldData} />
-        <LoginTextInput data={passwordFieldData} />
+        <LoginTextInput data={emailFieldData} onValidateInput={setEmail} />
+        <LoginTextInput
+          data={passwordFieldData}
+          onValidateInput={setPassword}
+        />
       </LoginTextBox>
-      <LoginSubmitButton title={"Submit"}></LoginSubmitButton>
+      <LoginSubmitButton
+        title={"Submit"}
+        onPress={() =>
+          loginUser({
+            variables: {
+              data: { email: email.toLowerCase(), password: password },
+            },
+          })
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error))
+        }
+      ></LoginSubmitButton>
     </LoginViewContainer>
   );
 }
