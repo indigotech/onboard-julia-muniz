@@ -8,7 +8,6 @@ import "react-native-reanimated";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 export default function RootLayout() {
-  // const [isAuthenticated, setIsAuthenticated] = useState("false");
   const [loaded] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     SpaceMono: require("../assets/fonts/SpaceMono.ttf"),

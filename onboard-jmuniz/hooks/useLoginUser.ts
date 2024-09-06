@@ -13,7 +13,7 @@ const LOGIN_USER = gql`
 `;
 
 export const useLoginUser = (props: useLoginUserProps) => {
-  const [executeUserLogin, { data, loading, error }] = useMutation(LOGIN_USER);
+  const [executeUserLogin] = useMutation(LOGIN_USER);
   const [successfull, setSuccessful] = useState(false);
 
   const loginUser = async () => {
@@ -28,5 +28,5 @@ export const useLoginUser = (props: useLoginUserProps) => {
       return result.data;
     }
   };
-  return { loginUser, data, loading, error, successfull };
+  return { loginUser, successfull };
 };
