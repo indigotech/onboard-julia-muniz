@@ -1,19 +1,13 @@
 import { StyledView } from "@/components/styled-view";
 import { StyledTitle } from "@/components/styled-title";
 import React from "react";
-import { LoginView } from "@/components/login/login-view";
+import { LoginForm } from "@/components/login/login-form";
 
-export default function IndexView() {
-  // const clientLogin = (profile: loginProfile): number => {
-  //   console.log(profile.email);
-  //   console.log(profile.password);
-  //   return 0;
-  // };
-
+export default function LoginView() {
   return (
     <StyledView>
       <StyledTitle> Welcome to Taqtile! </StyledTitle>
-      <LoginView />
+      <LoginForm />
     </StyledView>
   );
 }
