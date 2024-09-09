@@ -26,12 +26,14 @@ export default function RootLayout() {
   }, [loaded]);
 
   useEffect(() => {
-    if (signIn) {
-      router.replace("/home");
-    } else {
-      router.replace("/");
+    if (!loading) {
+      if (signIn) {
+        router.replace("/home");
+      } else {
+        router.replace("/");
+      }
     }
-  }, [signIn]);
+  }, [signIn, loading]);
 
   return (
     <ApolloProvider client={client}>
