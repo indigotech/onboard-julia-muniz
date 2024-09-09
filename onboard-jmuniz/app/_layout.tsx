@@ -30,7 +30,9 @@ export default function RootLayout() {
       if (signIn) {
         router.replace("/home");
       } else {
-        router.replace("/");
+        if (router.canDismiss()) {
+          router.dismissAll();
+        }
       }
     }
   }, [signIn, loading]);
