@@ -1,4 +1,4 @@
-export interface loginUserResponseProps {
+export interface LoginUserResponseProps {
   login: {
     token: string;
   };
