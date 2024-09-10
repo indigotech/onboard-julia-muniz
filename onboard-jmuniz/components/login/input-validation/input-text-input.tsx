@@ -14,6 +14,7 @@ const StyledInput = styled.TextInput`
 export interface LoginTextInputProps {
   label: string;
   conditions: { pattern: RegExp; message: string }[];
+  secureEntry: boolean;
 }
 
 export function InputTextInput(props: {
@@ -37,7 +38,11 @@ export function InputTextInput(props: {
   return (
     <View>
       <InputLabelText>{props.data.label}</InputLabelText>
-      <StyledInput value={value} onChangeText={validateInput}></StyledInput>
+      <StyledInput
+        value={value}
+        onChangeText={validateInput}
+        secureTextEntry={props.data.secureEntry}
+      ></StyledInput>
       <InputWarningText>{warning}</InputWarningText>
     </View>
   );

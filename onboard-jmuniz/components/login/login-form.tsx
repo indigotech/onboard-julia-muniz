@@ -18,6 +18,7 @@ const emailFieldData: LoginTextInputProps = {
       message: "E-mail must have valid format: xxxx@xxxx.com.",
     },
   ],
+  secureEntry: false,
 };
 
 const passwordFieldData: LoginTextInputProps = {
@@ -36,6 +37,7 @@ const passwordFieldData: LoginTextInputProps = {
       message: "Password must have at least 7 valid characters.",
     },
   ],
+  secureEntry: true,
 };
 
 export function LoginForm() {
