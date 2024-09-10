@@ -1,4 +1,4 @@
-import { UserProps } from "@/app/home";
+import { UserProps } from "@/app/(home)/users";
 import { FlatList } from "react-native";
 import styled from "styled-components/native";
 

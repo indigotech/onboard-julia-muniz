@@ -60,7 +60,7 @@ export function LoginForm() {
     try {
       setLoading(true);
       await loginUser(loginProps);
-      router.replace("/list");
+      router.replace("/users");
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);

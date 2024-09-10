@@ -8,8 +8,8 @@ export interface UserProps {
   email: string;
 }
 
-export default function HomeView() {
-  const newData = useGetUsersList();
+export default function UsersView() {
+  const users = useGetUsersList(0);
   const UserElement = (props: UserProps) => {
     return (
       <UsersListElementContainer>
@@ -21,7 +21,7 @@ export default function HomeView() {
   return (
     <View>
       <FlatList
-        data={newData}
+        data={users}
         renderItem={({ item }) => (
           <UserElement name={item.name} email={item.email} />
         )}

@@ -1,6 +1,5 @@
+import { UserProps } from "@/app/(home)/users";
 import { gql, useQuery } from "@apollo/client";
-import { GetToken } from "@/constants/secure-store";
-import { UserProps } from "@/app/(home)/list";
 
 const PAGE_SIZE = 20;
 
@@ -21,16 +20,9 @@ export interface UsersListResultProps {
   };
 }
 
-export default function useGetUsersList(): UserProps[] | undefined {
-  const token = GetToken();
-  // const apolloClient = client;
+export default function useGetUsersList(page: number): UserProps[] | undefined {
   const { data } = useQuery<UsersListResultProps>(USERS_LIST, {
-    variables: { data: { offset: 300, limit: PAGE_SIZE } },
-    context: {
-      headers: {
-        authorization: token,
-      },
-    },
+    variables: { data: { offset: page, limit: PAGE_SIZE } },
   });
 
   return data?.users.nodes;
