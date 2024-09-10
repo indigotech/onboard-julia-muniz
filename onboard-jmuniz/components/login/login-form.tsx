@@ -51,16 +51,18 @@ export function LoginForm() {
     },
   };
 
-  const { loginUser } = useLoginUser(loginProps);
+  const {
+    operations: { signIn },
+  } = useContext(AuthContext);
 
   async function submitLogin() {
     try {
-      await loginUser();
-      router.push("/home");
+      await signIn(loginProps);
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);
       } else {
+        console.log(e);
         React.Alert.alert("Error", (e as Error).message);
       }
     }

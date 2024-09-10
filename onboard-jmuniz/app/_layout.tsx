@@ -1,6 +1,6 @@
 import { client } from "@/constants/apollo-client";
-import { AuthContextMemoProps } from "@/constants/interfaces/auth-context-memo-props";
-import useAuthenticate from "@/hooks/useAuthenticate";
+import { AuthContext } from "@/constants/auth-context";
+import { useAuthenticateUser } from "@/hooks/useAuthenticateUser";
 import { ApolloProvider } from "@apollo/client";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -9,17 +9,13 @@ import React from "react";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-const defaultConte
-
-const AuthContext = React.createContext<AuthContextMemoProps>();
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 export default function RootLayout() {
   const [loaded] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     SpaceMono: require("../assets/fonts/SpaceMono.ttf"),
   });
 
-  const { authContext, state } = useAuthenticate();
+  const authContext = useAuthenticateUser();
 
   useEffect(() => {
     if (loaded) {
@@ -35,8 +31,11 @@ export default function RootLayout() {
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authContext}>
         <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-          <Stack.Screen name="home" />
+          {authContext.state.isSignout ? (
+            <Stack.Screen name="index" />
+          ) : (
+            <Stack.Screen name="home" />
+          )}
         </Stack>
       </AuthContext.Provider>
     </ApolloProvider>
