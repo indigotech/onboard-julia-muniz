@@ -4,7 +4,9 @@ import { getToken } from "./secure-store";
 
 const GRAPHQL_API =
   "https://template-onboarding-node-sjz6wnaoia-uc.a.run.app/graphql";
+
 const httpLink = createHttpLink({ uri: GRAPHQL_API });
+
 const authLink = setContext(async () => {
   const token = await getToken();
   return {
