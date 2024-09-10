@@ -1,7 +1,7 @@
 import { UserProps } from "@/app/(home)/users";
 import { gql, useQuery } from "@apollo/client";
 
-const PAGE_SIZE = 20;
+export const PAGE_SIZE = 20;
 
 const USERS_LIST = gql`
   query Users($data: PageInput!) {
