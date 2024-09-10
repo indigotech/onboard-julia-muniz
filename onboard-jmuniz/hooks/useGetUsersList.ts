@@ -17,10 +17,7 @@ const USERS_LIST = gql`
 
 export interface UsersListResultProps {
   users: {
-    nodes: {
-      name: string;
-      email: string;
-    }[];
+    nodes: UserProps[];
   };
 }
 
