@@ -88,7 +88,7 @@ export function LoginForm() {
       ) : (
         <LoginFormSubmitButton
           title={"Submit"}
-          onPress={async () => await submitLogin()}
+          onPress={submitLogin}
         ></LoginFormSubmitButton>
       )}
     </LoginFormContainer>
