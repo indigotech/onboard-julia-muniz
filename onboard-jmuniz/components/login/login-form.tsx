@@ -9,6 +9,7 @@ import {
   InputTextInput,
   LoginTextInputProps,
 } from "./input-validation/input-text-input";
+import { useGetContext } from "@/hooks/UseGetContext";
 
 const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
@@ -51,19 +52,23 @@ export function LoginForm() {
     },
   };
 
-  const {
-    operations: { signIn },
-  } = useContext(AuthContext);
+  const { loginUser } = useLoginUser();
+  const { setLoading, setSignIn } = useGetContext();
 
   async function submitLogin() {
     try {
-      await signIn(loginProps);
+      setLoading(true);
+      await loginUser(loginProps);
+      setSignIn(true);
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);
       } else {
         React.Alert.alert("Error", (e as Error).message);
       }
+      setSignIn(false);
+    } finally {
+      setLoading(false);
     }
   }
 
