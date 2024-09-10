@@ -25,11 +25,11 @@ export interface LoginUserResponseProps {
   };
 }
 
-export const useLoginUser = (props: UseLoginUserProps) => {
+export const useLoginUser = () => {
   const [executeUserLogin] = useMutation(LOGIN_USER);
   const [successfull, setSuccessful] = useState(false);
 
-  const loginUser = async () => {
+  const loginUser = async (props: UseLoginUserProps) => {
     if (props.variables.data.email && props.variables.data.password) {
       const result: FetchResult<LoginUserResponseProps> =
         await executeUserLogin(props);

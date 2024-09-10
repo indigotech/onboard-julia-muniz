@@ -1,14 +1,14 @@
 import * as React from "react-native";
 import { LoginFormSubmitButton } from "./login-form-submit-button";
-import { LoginFormContainer } from "./login-form-container";
-import { LoginFormInputContainer } from "./login-form-text-container";
-import { useState } from "react";
-import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
-import { router } from "expo-router";
 import {
   InputTextInput,
   LoginTextInputProps,
 } from "./input-validation/input-text-input";
+import { LoginFormContainer } from "./login-form-container";
+import { LoginFormInputContainer } from "./login-form-text-container";
+import { useState } from "react";
+import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
+import { useRouter } from "expo-router";
 
 const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
@@ -41,6 +41,9 @@ const passwordFieldData: LoginTextInputProps = {
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser } = useLoginUser();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const loginProps: UseLoginUserProps = {
     variables: {
@@ -51,18 +54,19 @@ export function LoginForm() {
     },
   };
 
-  const { loginUser } = useLoginUser(loginProps);
-
   async function submitLogin() {
     try {
-      await loginUser();
-      router.push("/home");
+      setLoading(true);
+      await loginUser(loginProps);
+      router.replace("/home/");
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);
       } else {
         React.Alert.alert("Error", (e as Error).message);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -75,10 +79,16 @@ export function LoginForm() {
           onValidateInput={setPassword}
         />
       </LoginFormInputContainer>
-      <LoginFormSubmitButton
-        title={"Submit"}
-        onPress={async () => await submitLogin()}
-      ></LoginFormSubmitButton>
+      {loading ? (
+        <>
+          <React.ActivityIndicator size="large" />
+        </>
+      ) : (
+        <LoginFormSubmitButton
+          title={"Submit"}
+          onPress={async () => await submitLogin()}
+        ></LoginFormSubmitButton>
+      )}
     </LoginFormContainer>
   );
 }

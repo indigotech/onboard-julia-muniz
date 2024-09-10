@@ -3,10 +3,10 @@ import { ApolloProvider } from "@apollo/client";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import React from "react";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 export default function RootLayout() {
   const [loaded] = useFonts({
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -19,15 +19,10 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <ApolloProvider client={client}>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="home" />
       </Stack>
     </ApolloProvider>
   );
