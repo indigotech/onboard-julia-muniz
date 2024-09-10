@@ -1,4 +1,3 @@
-import { LoginUserResponseProps } from "@/constants/interfaces/login-user-response-props";
 import { SaveToken } from "@/constants/secure-store";
 import { FetchResult, gql, useMutation } from "@apollo/client";
 import { useState } from "react";
@@ -17,6 +16,12 @@ export interface UseLoginUserProps {
       email: string;
       password: string;
     };
+  };
+}
+
+export interface LoginUserResponseProps {
+  login: {
+    token: string;
   };
 }
 

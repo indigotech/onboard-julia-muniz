@@ -1,13 +1,14 @@
 import * as React from "react-native";
 import { LoginFormSubmitButton } from "./login-form-submit-button";
-import { InputTextInput } from "./input-validation/input-text-input";
 import { LoginFormContainer } from "./login-form-container";
 import { LoginFormInputContainer } from "./login-form-text-container";
-import { LoginTextInputProps } from "@/constants/interfaces/login-text-input-props";
 import { useState } from "react";
-import { useLoginUser } from "@/hooks/useLoginUser";
-import { useLoginUserProps } from "@/constants/interfaces/use-login-user-props";
+import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
 import { router } from "expo-router";
+import {
+  InputTextInput,
+  LoginTextInputProps,
+} from "./input-validation/input-text-input";
 
 const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
@@ -41,7 +42,7 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const loginProps: useLoginUserProps = {
+  const loginProps: UseLoginUserProps = {
     variables: {
       data: {
         email: email.toLowerCase(),

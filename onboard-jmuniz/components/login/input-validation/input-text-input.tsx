@@ -3,7 +3,6 @@ import { InputLabelText } from "./input-label-text";
 import { InputWarningText } from "./input-waring-text";
 import { View } from "react-native";
 import { useState } from "react";
-import { LoginTextInputProps } from "@/constants/interfaces/login-text-input-props";
 
 const StyledInput = styled.TextInput`
   padding: 10px;
@@ -11,6 +10,11 @@ const StyledInput = styled.TextInput`
   border-radius: 5px;
   box-shadow: 2px 2px #dcdcdc;
 `;
+
+export interface LoginTextInputProps {
+  label: string;
+  conditions: { pattern: RegExp; message: string }[];
+}
 
 export function InputTextInput(props: {
   data: LoginTextInputProps;
