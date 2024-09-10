@@ -18,14 +18,13 @@ export interface UseLoginUserProps {
     };
   };
 }
-
 export interface LoginUserResponseProps {
   login: {
     token: string;
   };
 }
 
-export const useLoginUser = () => {
+export default function useLoginUser() {
   const [executeUserLogin] = useMutation(LOGIN_USER);
   const [successfull, setSuccessful] = useState(false);
 
@@ -42,4 +41,4 @@ export const useLoginUser = () => {
     }
   };
   return { loginUser, successfull };
-};
+}

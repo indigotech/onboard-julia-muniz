@@ -1,10 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import useGetClient from "./useGetClient";
 import { GetToken } from "@/constants/secure-store";
+import { UserProps } from "@/app/(home)/list";
+
+const PAGE_SIZE = 20;
 
 const USERS_LIST = gql`
-  query Users {
-    users(data: { offset: 380, limit: 100 }) {
+  query Users($data: PageInput!) {
+    users(data: $data) {
       nodes {
         name
         email
@@ -14,23 +16,25 @@ const USERS_LIST = gql`
 `;
 
 export interface UsersListResultProps {
-  data: {
-    users: {
-      nodes: {
-        name: string;
-        email: string;
-      }[];
-    };
+  users: {
+    nodes: {
+      name: string;
+      email: string;
+    }[];
   };
 }
 
-export default function useGetUsersList() {
-  const [client] = useGetClient(GetToken() ?? "");
-  const { data } = useQuery(USERS_LIST, { client: client });
+export default function useGetUsersList(): UserProps[] | undefined {
+  const token = GetToken();
+  // const apolloClient = client;
+  const { data } = useQuery<UsersListResultProps>(USERS_LIST, {
+    variables: { data: { offset: 300, limit: PAGE_SIZE } },
+    context: {
+      headers: {
+        authorization: token,
+      },
+    },
+  });
 
-  const getList = (): UsersListResultProps => {
-    return data;
-  };
-
-  return { getList };
+  return data?.users.nodes;
 }

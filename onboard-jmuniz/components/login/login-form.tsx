@@ -7,7 +7,7 @@ import {
 import { LoginFormContainer } from "./login-form-container";
 import { LoginFormInputContainer } from "./login-form-text-container";
 import { useState } from "react";
-import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
+import useLoginUser, { UseLoginUserProps } from "@/hooks/useLoginUser";
 import { useRouter } from "expo-router";
 
 const emailFieldData: LoginTextInputProps = {
@@ -58,7 +58,7 @@ export function LoginForm() {
     try {
       setLoading(true);
       await loginUser(loginProps);
-      router.replace("/home/");
+      router.replace("/list");
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);
