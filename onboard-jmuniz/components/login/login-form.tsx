@@ -1,14 +1,14 @@
 import * as React from "react-native";
 import { LoginFormSubmitButton } from "./login-form-submit-button";
-import { LoginFormContainer } from "./login-form-container";
-import { LoginFormInputContainer } from "./login-form-text-container";
-import { useState } from "react";
-import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
-import { router } from "expo-router";
 import {
   InputTextInput,
   LoginTextInputProps,
 } from "./input-validation/input-text-input";
+import { LoginFormContainer } from "./login-form-container";
+import { LoginFormInputContainer } from "./login-form-text-container";
+import { useState } from "react";
+import { UseLoginUserProps } from "@/constants/interfaces/use-login-user-props";
+import { useLoginUser } from "@/hooks/useLoginUser";
 import { useGetContext } from "@/hooks/UseGetContext";
 
 const emailFieldData: LoginTextInputProps = {
@@ -42,6 +42,8 @@ const passwordFieldData: LoginTextInputProps = {
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser } = useLoginUser();
+  const { setLoading, setSignIn } = useGetContext();
 
   const loginProps: UseLoginUserProps = {
     variables: {
@@ -51,9 +53,6 @@ export function LoginForm() {
       },
     },
   };
-
-  const { loginUser } = useLoginUser();
-  const { setLoading, setSignIn } = useGetContext();
 
   async function submitLogin() {
     try {

@@ -3,7 +3,7 @@ import { StyledTitle } from "@/components/styled-title";
 import React from "react";
 import { LoginForm } from "@/components/login/login-form";
 import LoadingView from "@/components/loading/loading-view";
-import { useGetContext } from "@/hooks/useGetContext";
+import { useGetContext } from "@/hooks/UseGetContext";
 
 export default function LoginView() {
   const { loading } = useGetContext();
