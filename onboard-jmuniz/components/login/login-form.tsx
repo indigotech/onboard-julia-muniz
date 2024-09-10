@@ -7,9 +7,8 @@ import {
 import { LoginFormContainer } from "./login-form-container";
 import { LoginFormInputContainer } from "./login-form-text-container";
 import { useState } from "react";
-import { UseLoginUserProps } from "@/constants/interfaces/use-login-user-props";
-import { useLoginUser } from "@/hooks/useLoginUser";
-import { useGetContext } from "@/hooks/UseGetContext";
+import { useLoginUser, UseLoginUserProps } from "@/hooks/useLoginUser";
+import { useRouter } from "expo-router";
 
 const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
@@ -43,7 +42,8 @@ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { loginUser } = useLoginUser();
-  const { setLoading, setSignIn } = useGetContext();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const loginProps: UseLoginUserProps = {
     variables: {
@@ -58,14 +58,13 @@ export function LoginForm() {
     try {
       setLoading(true);
       await loginUser(loginProps);
-      setSignIn(true);
+      router.replace("/home/");
     } catch (e) {
       if (React.Platform.OS == "web") {
         alert(e);
       } else {
         React.Alert.alert("Error", (e as Error).message);
       }
-      setSignIn(false);
     } finally {
       setLoading(false);
     }
@@ -80,10 +79,16 @@ export function LoginForm() {
           onValidateInput={setPassword}
         />
       </LoginFormInputContainer>
-      <LoginFormSubmitButton
-        title={"Submit"}
-        onPress={async () => await submitLogin()}
-      ></LoginFormSubmitButton>
+      {loading ? (
+        <>
+          <React.ActivityIndicator size="large" />
+        </>
+      ) : (
+        <LoginFormSubmitButton
+          title={"Submit"}
+          onPress={async () => await submitLogin()}
+        ></LoginFormSubmitButton>
+      )}
     </LoginFormContainer>
   );
 }
