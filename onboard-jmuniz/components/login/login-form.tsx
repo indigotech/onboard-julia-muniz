@@ -62,7 +62,6 @@ export function LoginForm() {
       if (React.Platform.OS == "web") {
         alert(e);
       } else {
-        console.log(e);
         React.Alert.alert("Error", (e as Error).message);
       }
     }

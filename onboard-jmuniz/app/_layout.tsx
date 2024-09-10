@@ -7,6 +7,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React from "react";
 import { useEffect } from "react";
+import { router } from "expo-router";
 import "react-native-reanimated";
 
 export default function RootLayout() {
@@ -15,27 +16,41 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono.ttf"),
   });
 
+<<<<<<< HEAD
   const authContext = useAuthenticateUser();
+=======
+  const [loading, setLoading] = useState(true);
+  const [signIn, setSignIn] = useState(false);
+>>>>>>> 542afc0 (Loading Screen Function)
 
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      setLoading(false);
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
+  useEffect(() => {
+    if (signIn) {
+      router.replace("/home");
+    } else {
+      router.replace("/");
+    }
+  }, [signIn]);
 
   return (
     <ApolloProvider client={client}>
       <AuthContext.Provider value={authContext}>
         <Stack screenOptions={{ headerShown: false }}>
+<<<<<<< HEAD
           {authContext.state.isSignout ? (
             <Stack.Screen name="index" />
           ) : (
             <Stack.Screen name="home" />
           )}
+=======
+          <Stack.Screen name="index" />
+>>>>>>> 542afc0 (Loading Screen Function)
         </Stack>
       </AuthContext.Provider>
     </ApolloProvider>
