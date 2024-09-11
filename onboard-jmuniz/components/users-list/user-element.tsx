@@ -1,4 +1,4 @@
-import { UserProps } from "@/app/(home)/users";
+import { UserProps } from "@/hooks/useGetUsersList";
 import { UsersListElementContainer } from "./users-list-element-container";
 import { Text } from "react-native";
 

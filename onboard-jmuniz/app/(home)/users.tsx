@@ -1,41 +1,52 @@
 import { UserElement } from "@/components/users-list/user-element";
-import useGetUsersList, { PAGE_SIZE } from "@/hooks/useGetUsersList";
-import React, { useEffect, useState } from "react";
-import { FlatList, View, ActivityIndicator } from "react-native";
-
-export interface UserProps {
-  name: string;
-  email: string;
-}
+import { UsersListContainer } from "@/components/users-list/users-list-container";
+import useGetUsersList from "@/hooks/useGetUsersList";
+import React, { useState } from "react";
+import { FlatList, ActivityIndicator } from "react-native";
 
 export default function UsersView() {
-  const [page, setPage] = useState(0);
-  const [users, setUsers] = useState<UserProps[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const data = useGetUsersList(page) ?? [];
-  useEffect(() => {
-    if (data.length && isLoading) {
-      setUsers([...users, ...data]);
-      setIsLoading(false);
-    }
-  }, [data, isLoading]);
-  function fetchData() {
-    if (!isLoading) {
-      setPage(page + PAGE_SIZE);
-      setIsLoading(true);
+  const { loading, data, fetchMore } = useGetUsersList(0);
+  const [end, setEnd] = useState(false);
+
+  function fetchMoreUsers() {
+    if (!loading && !end) {
+      fetchMore({
+        variables: {
+          data: {
+            offset: data?.users.nodes.length,
+          },
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (fetchMoreResult && prev.users) {
+            return {
+              users: {
+                nodes: [
+                  ...new Set([
+                    ...prev.users.nodes,
+                    ...fetchMoreResult.users.nodes,
+                  ]),
+                ],
+              },
+            };
+          }
+          setEnd(true);
+          return prev;
+        },
+      });
     }
   }
+
   return (
-    <View>
+    <UsersListContainer>
       <FlatList
-        data={users}
+        data={data?.users.nodes}
         renderItem={({ item }) => (
           <UserElement name={item.name} email={item.email} />
         )}
-        onEndReached={fetchData}
+        onEndReached={fetchMoreUsers}
         onEndReachedThreshold={0.4}
         ListEmptyComponent={<ActivityIndicator size={"large"} />}
       />
-    </View>
+    </UsersListContainer>
   );
 }
