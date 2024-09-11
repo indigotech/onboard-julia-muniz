@@ -6,7 +6,6 @@ const USERS_LIST = gql`
   query Users($data: PageInput!) {
     users(data: $data) {
       nodes {
-        id
         name
         email
       }
