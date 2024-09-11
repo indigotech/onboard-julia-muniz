@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 
-export const PAGE_SIZE = 20;
+export const QUERY_LIMIT = 20;
 
 const USERS_LIST = gql`
   query Users($data: PageInput!) {
@@ -28,7 +28,7 @@ export default function useGetUsersList(offset: number) {
   const { loading, data, fetchMore } = useQuery<UsersListResultProps>(
     USERS_LIST,
     {
-      variables: { data: { offset: offset, limit: PAGE_SIZE } },
+      variables: { data: { offset: offset, limit: QUERY_LIMIT } },
       fetchPolicy: "cache-and-network",
       notifyOnNetworkStatusChange: true,
     },
