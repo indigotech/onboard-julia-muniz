@@ -43,7 +43,9 @@ export function InputTextInput(props: {
         onChangeText={validateInput}
         secureTextEntry={props.data.secureEntry}
       />
-      <InputWarningText>{warning}</InputWarningText>
+      <InputWarningText $visibility={warning.length ? "visible" : "hidden"}>
+        {warning}
+      </InputWarningText>
     </View>
   );
 }
