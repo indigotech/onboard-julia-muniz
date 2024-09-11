@@ -2,20 +2,20 @@ import { Switch } from "react-native";
 import { InputLabelText } from "../login/input-validation/input-label-text";
 import { LoginFormContainer } from "../login/login-form-container";
 import { LoginFormInputContainer } from "../login/login-form-text-container";
-import { ColumnContainer } from "./widget-row/column-container";
-import { RowContainer } from "./widget-row/row-container";
+import { ColumnContainer } from "./column-container";
+import { RowContainer } from "./row-container";
 import React, { useState } from "react";
 import { styled } from "styled-components/native";
 import { emailFieldData, passwordFieldData } from "../login/login-form";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import {
   InputTextInput,
   LoginTextInputProps,
 } from "../login/input-validation/input-text-input";
 import { LoginFormSubmitButton } from "../login/login-form-submit-button";
+import DatePicker from "./date-picker/date-picker";
 
 const FormsView = styled.View`
-  overflow: visible;
+  overflow: scroll;
   width: 90%;
   height: 100%;
   margin: auto;
@@ -82,14 +82,9 @@ export default function CreateUserFormView() {
             </ColumnContainer>
             <ColumnContainer>
               <InputLabelText>Birth Date</InputLabelText>
-              <DateTimePicker
-                value={userForms.birthDate}
-                onChange={(e) =>
-                  setUserForms({
-                    ...userForms,
-                    birthDate: new Date(e.nativeEvent.timestamp),
-                  })
-                }
+              <DatePicker
+                date={userForms.birthDate}
+                setDate={(e) => setUserForms({ ...userForms, birthDate: e })}
               />
             </ColumnContainer>
           </RowContainer>
