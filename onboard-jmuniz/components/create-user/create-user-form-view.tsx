@@ -51,8 +51,8 @@ export const nameFieldData: LoginTextInputProps = {
   label: "Name",
   conditions: [
     {
-      pattern: /^([A-Z][a-z]{1,}\s{0,1}){2,}$/gm,
-      message: "Must insert at least 2 names",
+      pattern: /\b((([A-Z])|([Á-Û]))[-a-zá-û ']+[ ]*){2,}$/gm,
+      message: "Must insert at least 2 valid names",
     },
   ],
   secureEntry: false,
@@ -113,7 +113,9 @@ export default function CreateUserFormView() {
           />
           <InputTextInput
             data={emailFieldData}
-            onValidateInput={(e) => setUserForms({ ...userForms, email: e })}
+            onValidateInput={(e) =>
+              setUserForms({ ...userForms, email: e.toLowerCase() })
+            }
           />
           <InputTextInput
             data={phoneFieldData}
