@@ -35,7 +35,7 @@ export default function UsersView() {
       <FlatList
         data={data?.users.nodes}
         renderItem={({ item }) => (
-          <UserElement name={item.name} email={item.email} />
+          <UserElement name={item.name} email={item.email} id={item.id} />
         )}
         onEndReached={fetchMoreUsers}
         onEndReachedThreshold={0.4}

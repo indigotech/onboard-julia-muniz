@@ -8,6 +8,7 @@ const USERS_LIST = gql`
       nodes {
         name
         email
+        id
       }
       pageInfo {
         hasNextPage
@@ -19,6 +20,7 @@ const USERS_LIST = gql`
 export interface UserProps {
   email: string;
   name: string;
+  id: number;
 }
 
 export interface UsersListResultProps {

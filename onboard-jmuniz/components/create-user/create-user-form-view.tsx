@@ -2,7 +2,6 @@ import { ActivityIndicator, Switch } from "react-native";
 import { InputLabelText } from "../login/input-validation/input-label-text";
 import { LoginFormContainer } from "../login/login-form-container";
 import { LoginFormInputContainer } from "../login/login-form-text-container";
-import { ColumnContainer } from "./column-container";
 import { RowContainer } from "./row-container";
 import { useState } from "react";
 import { styled } from "styled-components/native";
@@ -19,6 +18,7 @@ import useCreateUser, {
 } from "@/hooks/useCreateUser";
 import * as React from "react-native";
 import { useRouter } from "expo-router";
+import { CenterColumn } from "./center-column";
 
 const emptyForm: CreateUserProps = {
   name: "",
@@ -95,17 +95,17 @@ export default function CreateUserFormView() {
       <LoginFormContainer>
         <LoginFormInputContainer>
           <RowContainer>
-            <ColumnContainer>
+            <CenterColumn>
               <InputLabelText>Admin</InputLabelText>
               <Switch value={adminSwitch} onValueChange={switchChange} />
-            </ColumnContainer>
-            <ColumnContainer>
+            </CenterColumn>
+            <CenterColumn>
               <InputLabelText>Birth Date</InputLabelText>
               <DatePicker
                 date={userForms.birthDate}
                 setDate={(e) => setUserForms({ ...userForms, birthDate: e })}
               />
-            </ColumnContainer>
+            </CenterColumn>
           </RowContainer>
           <InputTextInput
             data={nameFieldData}
