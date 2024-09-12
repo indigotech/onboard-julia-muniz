@@ -15,6 +15,8 @@ const AndroidDatePickerPressable = styled.Pressable`
   padding: 5%;
 `;
 
+const minimumDate = new Date("1920-01-01");
+
 export default function DatePicker(props: {
   date: Date;
   setDate: (input: Date) => void;
@@ -30,6 +32,8 @@ export default function DatePicker(props: {
         value: props.date,
         onChange,
         mode: "date",
+        minimumDate: minimumDate,
+        maximumDate: new Date(),
       });
     }
 
@@ -48,7 +52,13 @@ export default function DatePicker(props: {
     );
   } else {
     return (
-      <DateTimePicker value={props.date} mode="date" onChange={onChange} />
+      <DateTimePicker
+        value={props.date}
+        mode="date"
+        onChange={onChange}
+        minimumDate={minimumDate}
+        maximumDate={new Date()}
+      />
     );
   }
 }

@@ -38,8 +38,8 @@ export const phoneFieldData: LoginTextInputProps = {
   label: "Phone",
   conditions: [
     {
-      pattern: /^\d{7,16}$/gm,
-      message: "Phone must be between 7 and 16 numbers",
+      pattern: /^\d{10,11}$/gm,
+      message: "Phone must be between 10 and 11 numbers",
     },
   ],
   secureEntry: false,
@@ -47,7 +47,12 @@ export const phoneFieldData: LoginTextInputProps = {
 
 export const nameFieldData: LoginTextInputProps = {
   label: "Name",
-  conditions: [],
+  conditions: [
+    {
+      pattern: /^([A-Z][a-z]{1,}\s{0,1}){2,}$/gm,
+      message: "Must insert at least 2 names",
+    },
+  ],
   secureEntry: false,
 };
 
