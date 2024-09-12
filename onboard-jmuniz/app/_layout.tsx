@@ -5,8 +5,8 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React from "react";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { ScrollView } from "react-native-reanimated/lib/typescript/Animated";
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -21,13 +21,13 @@ export default function RootLayout() {
   }, [loaded]);
 
   return (
-    <ScrollView>
+    <GestureHandlerRootView>
       <ApolloProvider client={client}>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
           <Stack.Screen name="(home)" />
         </Stack>
       </ApolloProvider>
-    </ScrollView>
+    </GestureHandlerRootView>
   );
 }

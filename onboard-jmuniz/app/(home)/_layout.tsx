@@ -8,9 +8,7 @@ export default function HomeLayout() {
         name="add-users"
         options={{
           headerBackTitle: "Back",
-          headerTitle: () => {
-            return <></>;
-          },
+          title: "",
         }}
       />
     </Stack>
