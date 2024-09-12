@@ -1,4 +1,4 @@
-import { ActivityIndicator, Switch } from "react-native";
+import { ActivityIndicator } from "react-native";
 import { InputLabelText } from "../login/input-validation/input-label-text";
 import { LoginFormContainer } from "../login/login-form-container";
 import { LoginFormInputContainer } from "../login/login-form-text-container";
@@ -19,6 +19,7 @@ import useCreateUser, {
 import * as React from "react-native";
 import { useRouter } from "expo-router";
 import { CenterColumn } from "./center-column";
+import { Switch } from "react-native-gesture-handler";
 
 const emptyForm: CreateUserProps = {
   name: "",

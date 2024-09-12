@@ -39,6 +39,7 @@ export default function useLoginUser() {
       await saveToken(result.data.login.token);
       return result.data;
     }
+    throw new Error("User credentials cannot be empty");
   };
   return { loginUser, successfull };
 }

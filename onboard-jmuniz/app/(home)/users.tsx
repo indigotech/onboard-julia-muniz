@@ -1,4 +1,4 @@
-import AddUserButton from "@/components/users-list/add-users/add-user-button";
+import FabButton from "@/components/_nav/nav-fab/fab-button";
 import { UserElement } from "@/components/users-list/user-element";
 import { UsersListContainer } from "@/components/users-list/users-list-container";
 import FlatListFooter from "@/components/users-list/users-list-footer";
@@ -43,7 +43,7 @@ export default function UsersView() {
           data?.users.pageInfo.hasNextPage ?? true,
         )}
       />
-      <AddUserButton />
+      <FabButton route={"/add-users"} />
     </UsersListContainer>
   );
 }
