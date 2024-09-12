@@ -80,11 +80,7 @@ export default function CreateUserFormView() {
       await createUser({ variables: { data: userForms } });
       router.replace("/users");
     } catch (e) {
-      if (React.Platform.OS == "web") {
-        alert(e);
-      } else {
-        React.Alert.alert("Error", (e as Error).message);
-      }
+      React.Alert.alert("Error", (e as Error).message);
     } finally {
       setLoading(false);
     }

@@ -62,11 +62,7 @@ export function LoginForm() {
       await loginUser(loginProps);
       router.replace("/users");
     } catch (e) {
-      if (React.Platform.OS == "web") {
-        alert(e);
-      } else {
-        React.Alert.alert("Error", (e as Error).message);
-      }
+      React.Alert.alert("Error", (e as Error).message);
     } finally {
       setLoading(false);
     }
