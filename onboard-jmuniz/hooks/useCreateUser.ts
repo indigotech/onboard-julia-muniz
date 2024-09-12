@@ -14,16 +14,18 @@ export enum UserRole {
   ADMIN = "admin",
 }
 
+export interface CreateUserProps {
+  email: string;
+  password: string;
+  birthDate: Date;
+  phone: string;
+  name: string;
+  role: UserRole;
+}
+
 export interface UseCreateUserProps {
   variables: {
-    data: {
-      name: string;
-      email: string;
-      birthDate: Date;
-      phone: string;
-      role: UserRole;
-      password: string;
-    };
+    data: CreateUserProps;
   };
 }
 export interface CreateUserResponseProps {

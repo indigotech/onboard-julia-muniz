@@ -1,10 +1,10 @@
-import { Switch } from "react-native";
+import { ActivityIndicator, Switch } from "react-native";
 import { InputLabelText } from "../login/input-validation/input-label-text";
 import { LoginFormContainer } from "../login/login-form-container";
 import { LoginFormInputContainer } from "../login/login-form-text-container";
 import { ColumnContainer } from "./column-container";
 import { RowContainer } from "./row-container";
-import React, { useState } from "react";
+import { useState } from "react";
 import { styled } from "styled-components/native";
 import { emailFieldData, passwordFieldData } from "../login/login-form";
 import {
@@ -13,6 +13,21 @@ import {
 } from "../login/input-validation/input-text-input";
 import { LoginFormSubmitButton } from "../login/login-form-submit-button";
 import DatePicker from "./date-picker/date-picker";
+import useCreateUser, {
+  CreateUserProps,
+  UserRole,
+} from "@/hooks/useCreateUser";
+import * as React from "react-native";
+import { useRouter } from "expo-router";
+
+const emptyForm: CreateUserProps = {
+  name: "",
+  email: "",
+  password: "",
+  phone: "",
+  birthDate: new Date(),
+  role: UserRole.USER,
+};
 
 const FormsView = styled.View`
   overflow: scroll;
@@ -20,19 +35,6 @@ const FormsView = styled.View`
   height: 100%;
   margin: auto;
 `;
-
-enum UserRole {
-  USER = "user",
-  ADMIN = "admin",
-}
-interface CreateUserProps {
-  email: string;
-  password: string;
-  birthDate: Date;
-  phone: string;
-  name: string;
-  role: UserRole;
-}
 
 export const phoneFieldData: LoginTextInputProps = {
   label: "Phone",
@@ -57,15 +59,11 @@ export const nameFieldData: LoginTextInputProps = {
 };
 
 export default function CreateUserFormView() {
-  const [userForms, setUserForms] = useState<CreateUserProps>({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    birthDate: new Date(),
-    role: UserRole.USER,
-  });
+  const [userForms, setUserForms] = useState<CreateUserProps>(emptyForm);
   const [adminSwitch, setAdminSwitch] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { createUser } = useCreateUser();
+  const router = useRouter();
 
   function switchChange(newValue: boolean) {
     setAdminSwitch(newValue);
@@ -73,6 +71,26 @@ export default function CreateUserFormView() {
       setUserForms({ ...userForms, role: UserRole.ADMIN });
     } else {
       setUserForms({ ...userForms, role: UserRole.USER });
+    }
+  }
+
+  async function submitUser() {
+    try {
+      setLoading(true);
+      const result = await createUser({ variables: { data: userForms } });
+      React.Alert.alert(
+        "New user Created!",
+        "User " + result?.createUser.id + " added.",
+      );
+      router.replace("/users");
+    } catch (e) {
+      if (React.Platform.OS == "web") {
+        alert(e);
+      } else {
+        React.Alert.alert("Error", (e as Error).message);
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -110,7 +128,11 @@ export default function CreateUserFormView() {
             onValidateInput={(e) => setUserForms({ ...userForms, password: e })}
           />
         </LoginFormInputContainer>
-        <LoginFormSubmitButton title={"Create New User"} />
+        {loading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <LoginFormSubmitButton title={"Submit"} onPress={submitUser} />
+        )}
       </LoginFormContainer>
     </FormsView>
   );
