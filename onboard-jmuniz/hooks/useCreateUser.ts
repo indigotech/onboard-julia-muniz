@@ -35,17 +35,14 @@ export interface CreateUserResponseProps {
 }
 
 function propsAreValid(props: UseCreateUserProps) {
-  if (
+  return (
     props.variables.data.name &&
     props.variables.data.email &&
     props.variables.data.password &&
     props.variables.data.phone &&
     props.variables.data.birthDate &&
     Object.values(UserRole).includes(props.variables.data.role)
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 export default function useCreateUser() {
@@ -62,6 +59,7 @@ export default function useCreateUser() {
       setSuccessful(true);
       return result.data;
     }
+    throw new Error("All fields must be valid");
   };
   return { createUser, successfull };
 }

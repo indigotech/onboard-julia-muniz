@@ -77,11 +77,7 @@ export default function CreateUserFormView() {
   async function submitUser() {
     try {
       setLoading(true);
-      const result = await createUser({ variables: { data: userForms } });
-      React.Alert.alert(
-        "New user Created!",
-        "User " + result?.createUser.id + " added.",
-      );
+      await createUser({ variables: { data: userForms } });
       router.replace("/users");
     } catch (e) {
       if (React.Platform.OS == "web") {
