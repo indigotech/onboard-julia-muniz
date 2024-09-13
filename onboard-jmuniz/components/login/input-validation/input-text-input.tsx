@@ -42,7 +42,7 @@ export function InputTextInput(props: {
         value={value}
         onChangeText={validateInput}
         secureTextEntry={props.data.secureEntry}
-      ></StyledInput>
+      />
       <InputWarningText>{warning}</InputWarningText>
     </View>
   );

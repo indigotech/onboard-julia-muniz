@@ -1,7 +1,6 @@
-import { UserProps } from "@/app/(home)/users";
 import { gql, useQuery } from "@apollo/client";
 
-const PAGE_SIZE = 20;
+export const QUERY_LIMIT = 20;
 
 const USERS_LIST = gql`
   query Users($data: PageInput!) {
@@ -14,16 +13,25 @@ const USERS_LIST = gql`
   }
 `;
 
+export interface UserProps {
+  email: string;
+  name: string;
+}
+
 export interface UsersListResultProps {
   users: {
     nodes: UserProps[];
   };
 }
 
-export default function useGetUsersList(page: number): UserProps[] | undefined {
-  const { data } = useQuery<UsersListResultProps>(USERS_LIST, {
-    variables: { data: { offset: page, limit: PAGE_SIZE } },
-  });
-
-  return data?.users.nodes;
+export default function useGetUsersList(offset: number) {
+  const { loading, data, fetchMore } = useQuery<UsersListResultProps>(
+    USERS_LIST,
+    {
+      variables: { data: { offset: offset, limit: QUERY_LIMIT } },
+      fetchPolicy: "cache-and-network",
+      notifyOnNetworkStatusChange: true,
+    },
+  );
+  return { loading, data, fetchMore };
 }

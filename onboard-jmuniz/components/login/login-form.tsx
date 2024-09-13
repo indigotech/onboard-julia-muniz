@@ -82,14 +82,9 @@ export function LoginForm() {
         />
       </LoginFormInputContainer>
       {loading ? (
-        <>
-          <React.ActivityIndicator size="large" />
-        </>
+        <React.ActivityIndicator size="large" />
       ) : (
-        <LoginFormSubmitButton
-          title={"Submit"}
-          onPress={async () => await submitLogin()}
-        ></LoginFormSubmitButton>
+        <LoginFormSubmitButton title={"Submit"} onPress={submitLogin} />
       )}
     </LoginFormContainer>
   );
