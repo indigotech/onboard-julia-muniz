@@ -5,7 +5,7 @@ import { Box } from "../common/box";
 import { CenterColumn } from "../common/center-column";
 
 export const ShortTextContainer = styled(Box)`
-  background-color: #dcdcdc;
+  background-color: #fefefe;
   border-radius: 5px;
   padding: 5px;
   border: 1px solid #777777;

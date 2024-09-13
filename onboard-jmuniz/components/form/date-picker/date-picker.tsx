@@ -6,7 +6,9 @@ import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import styled from "styled-components/native";
 
 const AndroidDatePickerPressable = styled.Pressable`
-  background-color: #777777;
+  background-color: #fefefe;
+  border-radius: 5px;
+  border: 1px solid #777777;
   padding: 5%;
 `;
 

@@ -5,7 +5,7 @@ import { WarningText } from "../typography/warning";
 import { Box } from "../common/box";
 
 const StyledInput = styled.TextInput<{ $invalid: boolean }>`
-  background-color: #dcdcdc;
+  background-color: #fefefe;
   border-radius: 5px;
   padding: 5px;
   border: 1px;
