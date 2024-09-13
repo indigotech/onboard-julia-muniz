@@ -9,6 +9,9 @@ const USERS_LIST = gql`
         name
         email
       }
+      pageInfo {
+        hasNextPage
+      }
     }
   }
 `;
@@ -21,6 +24,9 @@ export interface UserProps {
 export interface UsersListResultProps {
   users: {
     nodes: UserProps[];
+    pageInfo: {
+      hasNextPage: boolean;
+    };
   };
 }
 
@@ -29,7 +35,7 @@ export default function useGetUsersList(offset: number) {
     USERS_LIST,
     {
       variables: { data: { offset: offset, limit: QUERY_LIMIT } },
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "no-cache",
       notifyOnNetworkStatusChange: true,
     },
   );

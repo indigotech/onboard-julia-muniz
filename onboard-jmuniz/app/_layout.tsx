@@ -5,6 +5,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React from "react";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
 export default function RootLayout() {
@@ -20,11 +21,13 @@ export default function RootLayout() {
   }, [loaded]);
 
   return (
-    <ApolloProvider client={client}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(home)" />
-      </Stack>
-    </ApolloProvider>
+    <GestureHandlerRootView>
+      <ApolloProvider client={client}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(home)" />
+        </Stack>
+      </ApolloProvider>
+    </GestureHandlerRootView>
   );
 }

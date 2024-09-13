@@ -10,7 +10,7 @@ import { useState } from "react";
 import useLoginUser, { UseLoginUserProps } from "@/hooks/useLoginUser";
 import { useRouter } from "expo-router";
 
-const emailFieldData: LoginTextInputProps = {
+export const emailFieldData: LoginTextInputProps = {
   label: "E-mail",
   conditions: [
     {
@@ -21,7 +21,7 @@ const emailFieldData: LoginTextInputProps = {
   secureEntry: false,
 };
 
-const passwordFieldData: LoginTextInputProps = {
+export const passwordFieldData: LoginTextInputProps = {
   label: "Password",
   conditions: [
     {

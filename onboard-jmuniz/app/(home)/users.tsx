@@ -1,15 +1,16 @@
+import AddUserButton from "@/components/users-list/add-users/add-user-button";
 import { UserElement } from "@/components/users-list/user-element";
 import { UsersListContainer } from "@/components/users-list/users-list-container";
+import FlatListFooter from "@/components/users-list/users-list-footer";
 import useGetUsersList from "@/hooks/useGetUsersList";
-import React, { useState } from "react";
-import { FlatList, ActivityIndicator } from "react-native";
+import React from "react";
+import { FlatList } from "react-native";
 
 export default function UsersView() {
   const { loading, data, fetchMore } = useGetUsersList(0);
-  const [end, setEnd] = useState(false);
 
   function fetchMoreUsers() {
-    if (!loading && !end) {
+    if (!loading && data?.users.pageInfo.hasNextPage) {
       fetchMore({
         variables: {
           data: {
@@ -18,18 +19,11 @@ export default function UsersView() {
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (fetchMoreResult && prev.users) {
-            return {
-              users: {
-                nodes: [
-                  ...new Set([
-                    ...prev.users.nodes,
-                    ...fetchMoreResult.users.nodes,
-                  ]),
-                ],
-              },
-            };
+            fetchMoreResult.users.nodes = [
+              ...new Set([...prev.users.nodes, ...fetchMoreResult.users.nodes]),
+            ];
+            return fetchMoreResult;
           }
-          setEnd(true);
           return prev;
         },
       });
@@ -45,8 +39,11 @@ export default function UsersView() {
         )}
         onEndReached={fetchMoreUsers}
         onEndReachedThreshold={0.4}
-        ListEmptyComponent={<ActivityIndicator size={"large"} />}
+        ListFooterComponent={FlatListFooter(
+          data?.users.pageInfo.hasNextPage ?? true,
+        )}
       />
+      <AddUserButton />
     </UsersListContainer>
   );
 }
