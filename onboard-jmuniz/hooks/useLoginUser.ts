@@ -1,4 +1,4 @@
-import { SaveToken } from "@/constants/secure-store";
+import { saveToken } from "@/constants/secure-store";
 import { FetchResult, gql, useMutation } from "@apollo/client";
 import { useState } from "react";
 
@@ -18,14 +18,13 @@ export interface UseLoginUserProps {
     };
   };
 }
-
 export interface LoginUserResponseProps {
   login: {
     token: string;
   };
 }
 
-export const useLoginUser = () => {
+export default function useLoginUser() {
   const [executeUserLogin] = useMutation(LOGIN_USER);
   const [successfull, setSuccessful] = useState(false);
 
@@ -37,9 +36,9 @@ export const useLoginUser = () => {
         throw new Error("Failed to fetch user");
       }
       setSuccessful(true);
-      await SaveToken(result.data.login.token);
+      await saveToken(result.data.login.token);
       return result.data;
     }
   };
   return { loginUser, successfull };
-};
+}
