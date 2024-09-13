@@ -1,7 +1,7 @@
-import FabButton from "@/components/_nav/nav-fab/fab-button";
-import { UserElement } from "@/components/users-list/user-element";
-import { UsersListContainer } from "@/components/users-list/users-list-container";
-import FlatListFooter from "@/components/users-list/users-list-footer";
+import { FullWidth } from "@/components/common/full-width";
+import FabButton from "@/components/nav/nav-fab/fab-button";
+import ListFooter from "@/components/users/users-list/list-footer";
+import { UserElement } from "@/components/users/users-list/user-element";
 import useGetUsersList from "@/hooks/useGetUsersList";
 import React from "react";
 import { FlatList } from "react-native";
@@ -31,7 +31,7 @@ export default function UsersView() {
   }
 
   return (
-    <UsersListContainer>
+    <FullWidth>
       <FlatList
         data={data?.users.nodes}
         renderItem={({ item }) => (
@@ -39,11 +39,11 @@ export default function UsersView() {
         )}
         onEndReached={fetchMoreUsers}
         onEndReachedThreshold={0.4}
-        ListFooterComponent={FlatListFooter(
+        ListFooterComponent={ListFooter(
           data?.users.pageInfo.hasNextPage ?? true,
         )}
       />
       <FabButton route={"/add-users"} />
-    </UsersListContainer>
+    </FullWidth>
   );
 }

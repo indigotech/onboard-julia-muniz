@@ -1,62 +1,63 @@
-import { CenterColumn } from "@/components/create-user/center-column";
-import { RowContainer } from "@/components/create-user/row-container";
-import { StyledTitle } from "@/components/styled-title";
-import { DetailCard } from "@/components/user-details/detail-card";
-import { DetailCardBody } from "@/components/user-details/detail-card-body";
-import { UserDetailsContent } from "@/components/user-details/user-details-content";
-import { UserDetailsLabel } from "@/components/user-details/user-details-label";
+import { ContentBox } from "@/components/common/content-box";
+import { FullWidth } from "@/components/common/full-width";
+import { Row } from "@/components/common/row";
+import { ScrollBox } from "@/components/common/scroll-box";
+import LongTextData from "@/components/data/long-text";
+import ShortTextData from "@/components/data/short-text";
+import { DisplayText } from "@/components/typography/display";
 import useGetUserDetails from "@/hooks/useGetUserDetails";
 import { useLocalSearchParams } from "expo-router";
 import { ActivityIndicator } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+
+const UNDEF = "UNDEF";
+
+enum DetailsLabel {
+  ROLE = "Role",
+  BIRTH = "Birth",
+  NAME = "Name",
+  PHONE = "Phone",
+  EMAIL = "E-mail",
+}
 
 export default function DetailsScreen() {
   const { id } = useLocalSearchParams();
   const { data, loading } = useGetUserDetails(Number(id));
 
   return (
-    <ScrollView>
+    <ScrollBox>
       {loading ? (
         <ActivityIndicator size={"large"} />
       ) : (
         <>
-          <StyledTitle>User #{id} </StyledTitle>
-          <DetailCard>
-            <DetailCardBody>
-              <RowContainer>
-                <CenterColumn>
-                  <UserDetailsLabel>Role</UserDetailsLabel>
-                  <UserDetailsContent>
-                    <UserDetailsLabel>
-                      {data?.user.role.toUpperCase()}
-                    </UserDetailsLabel>
-                  </UserDetailsContent>
-                </CenterColumn>
-                <CenterColumn>
-                  <UserDetailsLabel>Birth</UserDetailsLabel>
-                  <UserDetailsContent>
-                    <UserDetailsLabel>
-                      {data?.user.birthDate.toString()}
-                    </UserDetailsLabel>
-                  </UserDetailsContent>
-                </CenterColumn>
-              </RowContainer>
-              <UserDetailsLabel>Name</UserDetailsLabel>
-              <UserDetailsContent>
-                <UserDetailsLabel>{data?.user.name}</UserDetailsLabel>
-              </UserDetailsContent>
-              <UserDetailsLabel>Phone</UserDetailsLabel>
-              <UserDetailsContent>
-                <UserDetailsLabel>{data?.user.phone}</UserDetailsLabel>
-              </UserDetailsContent>
-              <UserDetailsLabel>E-mail</UserDetailsLabel>
-              <UserDetailsContent>
-                <UserDetailsLabel>{data?.user.email}</UserDetailsLabel>
-              </UserDetailsContent>
-            </DetailCardBody>
-          </DetailCard>
+          <DisplayText>User #{id} </DisplayText>
+          <FullWidth>
+            <ContentBox>
+              <Row>
+                <ShortTextData
+                  label={DetailsLabel.ROLE}
+                  value={data?.user.role.toUpperCase() ?? UNDEF}
+                />
+                <ShortTextData
+                  label={DetailsLabel.BIRTH}
+                  value={data?.user.birthDate.toString() ?? UNDEF}
+                />
+              </Row>
+              <LongTextData
+                label={DetailsLabel.NAME}
+                value={data?.user.name ?? UNDEF}
+              />
+              <LongTextData
+                label={DetailsLabel.PHONE}
+                value={data?.user.phone ?? UNDEF}
+              />
+              <LongTextData
+                label={DetailsLabel.EMAIL}
+                value={data?.user.email ?? UNDEF}
+              />
+            </ContentBox>
+          </FullWidth>
         </>
       )}
-    </ScrollView>
+    </ScrollBox>
   );
 }
