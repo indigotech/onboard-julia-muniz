@@ -1,13 +1,13 @@
-import { StyledTitle } from "@/components/styled-title";
 import * as React from "react-native";
-import CreateUserFormView from "@/components/create-user/create-user-form-view";
-import { ScrollView } from "react-native-gesture-handler";
+import { DisplayText } from "@/components/typography/display";
+import CreateUserForm from "@/components/form-pages/create-user-form";
+import { ScrollBox } from "@/components/common/scroll-box";
 
 export default function AddUsersView() {
   return (
-    <ScrollView>
-      <StyledTitle>Add a New User</StyledTitle>
-      <CreateUserFormView />
-    </ScrollView>
+    <ScrollBox>
+      <DisplayText>Add a New User</DisplayText>
+      <CreateUserForm />
+    </ScrollBox>
   );
 }

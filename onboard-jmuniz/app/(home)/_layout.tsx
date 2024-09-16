@@ -1,3 +1,4 @@
+import { HeaderText } from "@/components/typography/header";
 import { Stack } from "expo-router";
 
 export default function HomeLayout() {
@@ -5,7 +6,12 @@ export default function HomeLayout() {
     <Stack>
       <Stack.Screen
         name="users"
-        options={{ title: "Taqtile Users", headerBackVisible: false }}
+        options={{
+          headerBackVisible: false,
+          headerTitle: () => {
+            return <HeaderText>Taqtile Users</HeaderText>;
+          },
+        }}
       />
       <Stack.Screen
         name="add-users"
@@ -16,7 +22,12 @@ export default function HomeLayout() {
       />
       <Stack.Screen
         name="details/[id]"
-        options={{ title: "Details", headerBackTitle: "Back" }}
+        options={{
+          headerBackTitle: "Back",
+          headerTitle: () => {
+            return <HeaderText>Details</HeaderText>;
+          },
+        }}
       />
     </Stack>
   );
