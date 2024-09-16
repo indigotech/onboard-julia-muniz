@@ -14,6 +14,10 @@ export default function HomeLayout() {
           title: "",
         }}
       />
+      <Stack.Screen
+        name="details/[id]"
+        options={{ title: "Details", headerBackTitle: "Back" }}
+      />
     </Stack>
   );
 }

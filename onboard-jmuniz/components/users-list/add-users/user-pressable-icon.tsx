@@ -5,4 +5,5 @@ export const UserPressableIcon = styled.Text`
   font-size: 35px;
   color: white;
   font-weight: 600;
+  text-shadow: 1px 1px black;
 `;

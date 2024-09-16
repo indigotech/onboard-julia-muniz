@@ -2,7 +2,6 @@ import { ActivityIndicator, Switch } from "react-native";
 import { InputLabelText } from "../login/input-validation/input-label-text";
 import { LoginFormContainer } from "../login/login-form-container";
 import { LoginFormInputContainer } from "../login/login-form-text-container";
-import { ColumnContainer } from "./column-container";
 import { RowContainer } from "./row-container";
 import { useState } from "react";
 import { styled } from "styled-components/native";
@@ -19,6 +18,7 @@ import useCreateUser, {
 } from "@/hooks/useCreateUser";
 import * as React from "react-native";
 import { useRouter } from "expo-router";
+import { CenterColumn } from "./center-column";
 
 const emptyForm: CreateUserProps = {
   name: "",
@@ -51,8 +51,8 @@ export const nameFieldData: LoginTextInputProps = {
   label: "Name",
   conditions: [
     {
-      pattern: /^([A-Z][a-z]{1,}\s{0,1}){2,}$/gm,
-      message: "Must insert at least 2 names",
+      pattern: /\b((([A-Z])|([Á-Û]))[-a-zá-û ']+[ ]*){2,}$/gm,
+      message: "Must insert at least 2 valid names",
     },
   ],
   secureEntry: false,
@@ -80,11 +80,7 @@ export default function CreateUserFormView() {
       await createUser({ variables: { data: userForms } });
       router.replace("/users");
     } catch (e) {
-      if (React.Platform.OS == "web") {
-        alert(e);
-      } else {
-        React.Alert.alert("Error", (e as Error).message);
-      }
+      React.Alert.alert("Error", (e as Error).message);
     } finally {
       setLoading(false);
     }
@@ -95,17 +91,17 @@ export default function CreateUserFormView() {
       <LoginFormContainer>
         <LoginFormInputContainer>
           <RowContainer>
-            <ColumnContainer>
+            <CenterColumn>
               <InputLabelText>Admin</InputLabelText>
               <Switch value={adminSwitch} onValueChange={switchChange} />
-            </ColumnContainer>
-            <ColumnContainer>
+            </CenterColumn>
+            <CenterColumn>
               <InputLabelText>Birth Date</InputLabelText>
               <DatePicker
                 date={userForms.birthDate}
                 setDate={(e) => setUserForms({ ...userForms, birthDate: e })}
               />
-            </ColumnContainer>
+            </CenterColumn>
           </RowContainer>
           <InputTextInput
             data={nameFieldData}
@@ -113,7 +109,9 @@ export default function CreateUserFormView() {
           />
           <InputTextInput
             data={emailFieldData}
-            onValidateInput={(e) => setUserForms({ ...userForms, email: e })}
+            onValidateInput={(e) =>
+              setUserForms({ ...userForms, email: e.toLowerCase() })
+            }
           />
           <InputTextInput
             data={phoneFieldData}
