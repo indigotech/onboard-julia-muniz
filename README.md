@@ -16,9 +16,7 @@ This App is an onboarding activity to learn about React Native and related tools
     * iOS: iPhone 15 Pro Max
         - from XCode v15.4: iOS 17.5 simulation
     * Android: Pixel 4
-        - from Android Studio v2024.1.1: Android Emulator v32.1.12-9751036 (Qemu-system-aarch64) 
-    * Web: Google Chrome
-        - v128.0.6613.114
+        - from Android Studio v2024.1.1: Android Emulator v32.1.12-9751036 (Qemu-system-aarch64)
 
 ## Steps to Run
 
